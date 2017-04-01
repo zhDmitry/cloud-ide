@@ -1,0 +1,228 @@
+@import "vars.scss";
+
+html, body {
+	height: 100%;
+    margin: 0;
+}
+
+body {
+	font-family: Helvetica, sans-serif;
+	background-color: $header-background;
+}
+
+.header {
+	background-color: $header-background;
+	height: $header-height;
+	overflow: hidden;
+
+	&__logo {
+		float: left;
+		margin-top: 20px;
+		margin-left: 20px;
+	}
+
+	&__content {
+		float: left;
+		color: white;
+	}
+}
+
+.editor {
+	height: calc(100% - #{$header-height});
+
+	&__code-screen {
+		background-color: $code-background;
+		float: left;
+		width: 60%;
+		height: 100%;
+
+		&__editor-wrapper {
+			height: 100%;
+			
+			.CodeMirror {
+				height: 100%;
+			}
+		}
+	}
+
+	&__console {
+		background-color: $console-background;
+		float: left;
+		width: 40%;
+		height: 100%;
+	}
+}
+
+
+.code-screen {
+	background-color: $code-background;
+	float: left;
+	width: 60%;
+	height: 100%;
+
+	&__editor-wrapper {
+		height: 100%;
+		
+		.CodeMirror {
+			height: 100%;
+		}
+	}
+}
+
+.console {
+	height: 100%;
+
+	&__output {
+		font-family: monospace;
+		height: calc(100% - #{$console-toolbar-height} - 10px);
+		overflow: auto;
+		padding-top: 10px;
+
+		&__line {
+			padding: 2px 10px;
+			overflow: hidden;
+		}
+	}
+
+	&__toolbar {
+		position: relative;
+		width: inherit;
+		background: $console-toolbar-background;
+		color: $console-toolbar-text-background;
+		height: $console-toolbar-height;
+		overflow: hidden;
+		padding: 0 10px;
+		overflow: hidden;
+
+		&__run-button {
+			margin-top: 12px;
+			margin-left: 5px;
+			float: left;
+			background: #270528;
+			color: #ffc857;
+			border: 0;
+			padding: 5px 9px 4px 10px;
+			border-radius: 5px;
+			font-size: 1em;
+			outline: none;
+			cursor: pointer;
+
+			&:hover {
+				color: #9DFF67;
+			}
+
+			&:active {
+				color: #fff;
+			}
+
+		}
+
+		&__live-coding {
+			margin-top: 16px;
+			float: right;
+			padding-right: 20px;
+			font-size: 0.9em;
+
+			input {
+				margin-right: 6px;
+			}
+		}
+	}
+
+	&__chunk {
+		float: left;
+		margin-right: 10px;
+
+		&--list {
+			background: #DFFF9F;
+			border-radius: 5px;
+			padding: 10px 15px;
+			margin: 0 5px 0 0;
+			float: left;
+
+			&__item {
+				list-style: none;
+				padding: 3px;
+				margin: 0;
+				overflow: hidden;
+				color: #409E40;
+				min-width: 15px;
+
+				& & {
+					float: left;
+				}
+			}
+
+			// nested list
+			& & {
+				background: #EEFFCD;
+				border: 1px solid #409E40;
+				overflow: hidden;
+				margin-right: 0;
+			}
+		}
+
+		&--dict {
+			background: #FF66FF;
+			border-radius: 5px;
+			padding: 10px 15px;
+			margin: 0 10px 0 0;
+			float: left;
+
+			&__item {
+				list-style: none;
+				padding: 3px;
+				margin: 0;
+				overflow: hidden;
+			}
+
+			&__key {
+				color: purple;
+				overflow: hidden;
+				float: left;
+			}
+
+			&__val {
+				float: left;
+				padding-left: 5px;
+			}
+
+			// nested dictionaries
+			& & {
+				margin-left: -5px;
+				background: #FF87FF;
+    			border: 1px solid #D052D0;
+    			margin: 0 0 0 15px;
+			}
+
+		}
+	}
+}
+
+.file-list {
+	margin: 0 0 0 2px;
+	padding: 0;
+
+	&__item {
+		list-style: none;
+		float: left;
+		margin-top: 35px;
+		padding: 10px;
+		background: $tab-background;
+		margin-right: 2px;
+		cursor: pointer;
+
+		a {
+			color: $tab-text-color;
+			text-decoration: none;
+		}
+
+		&--current {
+			background: $current-tab-background;
+
+			a {
+				color: $current-tab-text-color;
+			}
+		}
+	}
+}

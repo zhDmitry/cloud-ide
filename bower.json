@@ -1,0 +1,19 @@
+{
+  "name": "pyide",
+  "version": "0.0.0",
+  "authors": [
+    "Fatih Erikli <fatiherikli@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "skulpt": "~0.10.1",
+    "codemirror": "~5.6.0"
+  }
+}
