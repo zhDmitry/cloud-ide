@@ -46,16 +46,27 @@ function compile(watch) {
   rebundle();
 }
 
-gulp.task('concat', function() {
+function buildWorker(name, scripts) {
+  var workerName = 'workers/' + name + '.js',
+      workerBundle = name + '.worker.js';
+  return gulp.src(scripts.concat([workerName]))
+           .pipe(concat(workerBundle))
+           .pipe(gulp.dest('./build/'));
+}
+
+gulp.task('buildWorkers', function() {
   var bowerPath = "./bower_components/"
-  return gulp.src([
-      bowerPath + 'opal/opal/current/opal.js',
-      bowerPath + 'opal/opal/current/opal-parser.js',
-      bowerPath + 'skulpt/skulpt.min.js',
-      bowerPath + 'skulpt/skulpt-stdlib.js',
-    ])
-    .pipe(concat('vendor.js'))
-    .pipe(gulp.dest('./build/'));
+
+  buildWorker('opal', [
+    bowerPath + 'opal/opal/current/opal.min.js',
+    bowerPath + 'opal/opal/current/opal-parser.min.js',
+  ]);
+
+  buildWorker('skulpt', [
+    bowerPath + 'skulpt/skulpt.min.js',
+    bowerPath + 'skulpt/skulpt-stdlib.js',
+  ]);
+  
 });
 
 gulp.task('sass', function () {
