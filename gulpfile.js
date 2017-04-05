@@ -88,6 +88,6 @@ gulp.task('compress', function() {
 
 gulp.task('js', function() { return compile(); });
 gulp.task('watch', function() { return compile(true); });
-gulp.task('build', ['concat', 'js', 'sass']);
+gulp.task('build', ['concat', 'js', 'buildWorkers', 'sass']);
 
 gulp.task('default', ['watch', 'watch-sass']);

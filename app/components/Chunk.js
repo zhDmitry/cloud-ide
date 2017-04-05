@@ -8,19 +8,25 @@ class List extends React.Component {
   render() {
     let block = "console__chunk--list",
         output = this.props.chunk;
+
+    let classes = classNames(block, {
+      "console__chunk--set": this.props.isSet
+    });
+
     return (
-      <table className={block}>
-        <tr>
+      <ul className={classes}>
         {output.map((item, i) => (
-          <td className={block + "__item"} key={i}>
+          <li className={block + "__item"} key={i}>
             <Chunk className={block + "__val"} chunk={item} />
             {i < output.length -1 && (
               <span className={block + "__separator"}>,</span>
             )}
-          </td>
+          </li>
         ))}
-        </tr>
-      </table>
+        {!output.length && (
+          <li className={block + "__item--empty"}></li>
+        )}
+      </ul>
     );
   }
 }
@@ -40,6 +46,11 @@ class Dict extends React.Component {
             </td>
           </tr>
         ))}
+        {!_.keys(output).length && (
+          <tr>
+            <td className={block + "__item--empty"}></td>
+          </tr>
+        )}
       </table>
     );
   }
@@ -57,7 +68,7 @@ class Chunk extends React.Component {
         isString = _.isString(output);
 
     if (_.isArray(output)) {
-      return <List chunk={output} />;
+      return <List chunk={output} isSet={this.props.isSet} />;
     }
     
     if (_.isObject(output)) {
@@ -65,7 +76,7 @@ class Chunk extends React.Component {
     }
     
     if (isString && this.isSet()) {
-      return <Chunk className={block + "--set"}
+      return <Chunk isSet={true}
                     chunk={this.setToIterable(output)} />;
     }
 

@@ -251,31 +251,60 @@ body {
 
   &--dict {
     background-color: #301C35;
-      border: 1px solid #3C2144;
-      border-radius: 5px;
+    border: 1px solid #3C2144;
+    border-radius: 5px;
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 1px;
 
-      &__key {
-        padding: 3px;
-        color: #A88BB1;
+    &__item {
+      &--empty {
+        padding: 10px 5px;
       }
+    }
 
-      &__val {
-        padding: 3px 5px 3px 3px;
+    &__key {
+      padding: 3px;
+      color: #A88BB1;
+    }
+
+    &__val {
+      padding: 3px;
+
+      .console__chunk {
+        margin: 0;
       }
+    }
   }
 
   &--list {
     background: #0E3D4A;
-      border: 1px solid #0F5165;
-      border-radius: 5px;
+    border: 1px solid #0F5165;
+    border-radius: 5px;
+    float: left;
+    margin: 0 5px 0 0;
+    padding: 2px;
+    overflow: auto;
 
     &__item {
       padding: 2px 3px;
+      list-style: none;
+      margin: 0;
+      float: left;
+
+      &--empty {
+        padding: 2px;
+      }
     }
 
     &__separator {
       color: #146D86;
     }
+  }
+
+  &--set {
+    background: #5A370C;
+    border: 1px solid #695227;
   }
 
   &--builtin { 
