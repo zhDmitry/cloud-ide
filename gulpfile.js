@@ -9,17 +9,19 @@ var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
-
+var stringify = require('stringify');
 
 function compile(watch) {
   var bundler = watchify(
       browserify('./app/main.js', {
         debug: true,
-        paths: ['./app/']
+        paths: ['./app/', './examples/']
       }).transform(
         babelify.configure({
           stage: 0
         })
+      ).transform(
+        stringify(['.py', '.rb', '.md'])
       )
   );
 

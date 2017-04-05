@@ -1,20 +1,14 @@
 import _ from "underscore";
 
-import { SAVE_FILE, CREATE_FILE, DELETE_FILE, 
-         OPEN_FILE, RENAME_FILE } from 'actions/files';
+import {SAVE_FILE, CREATE_FILE, DELETE_FILE, 
+        OPEN_FILE, RENAME_FILE} from 'actions/files';
 
 const initialState = {
-  'hello.py': `
-print 'selams, naber?'
-print [1, 2, 3, 4, 5, 6, range(5)]
-
-
-`.trim(),
-  'deneme.rb': 'puts "selam"',
-  'lists.py': 'print [1, 2, 3, 4];',
+  'hello.py': require('hello.py'),
+  'hello.rb': require('hello.rb')
 };
 
-export function files(state = initialState, action) {
+export function files(state=initialState, action) {
   switch (action.type) {
   case SAVE_FILE:
     return _.assign({}, state, {
@@ -41,7 +35,7 @@ export function files(state = initialState, action) {
   }
 };
 
-export function currentFile(state = 'hello.py', action) {
+export function currentFile(state='hello.py', action) {
   switch (action.type) {
     case OPEN_FILE:
       return action.path;
