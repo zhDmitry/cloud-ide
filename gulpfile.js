@@ -47,20 +47,12 @@ function compile(watch) {
 gulp.task('concat', function() {
   var bowerPath = "./bower_components/"
   return gulp.src([
+      bowerPath + 'opal/opal/current/opal.js',
+      bowerPath + 'opal/opal/current/opal-parser.js',
       bowerPath + 'skulpt/skulpt.min.js',
-      bowerPath + 'skulpt/skulpt-stdlib.js'
+      bowerPath + 'skulpt/skulpt-stdlib.js',
     ])
     .pipe(concat('vendor.js'))
-    .pipe(gulp.dest('./build/'));
-});
-
-gulp.task('concat-css', function() {
-  var modulesPath = "./node_modules/"
-  return gulp.src([
-      modulesPath + 'codemirror/lib/codemirror.css',
-      modulesPath + 'codemirror/theme/dracula.css'
-    ])
-    .pipe(concat('vendor.css'))
     .pipe(gulp.dest('./build/'));
 });
 
@@ -81,7 +73,8 @@ gulp.task('compress', function() {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('build', function() { return compile(); });
+gulp.task('js', function() { return compile(); });
 gulp.task('watch', function() { return compile(true); });
+gulp.task('build', ['concat', 'js', 'sass']);
 
 gulp.task('default', ['watch', 'watch-sass']);
