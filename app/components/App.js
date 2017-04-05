@@ -16,7 +16,7 @@ import {getInterpreter} from 'interpreters';
 class App extends React.Component {
   componentDidMount() {
     this.handleRun();
-    this.lazyRun = _.debounce(this.handleRun, 100);
+    this.lazyRun = _.debounce(this.handleRun, 300);
   }
   
   handleRun() {
