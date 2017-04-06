@@ -51,7 +51,7 @@ class CodeEditor extends React.Component {
       <AceEditor
         width={"auto"}
         height={"100%"}
-        fontSize={14}
+        fontSize={16}
         mode={mode}
         theme="tomorrow_night"
         ref={"editor"} 

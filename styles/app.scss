@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono);
 @import "vars.scss";
 
 html, body {
@@ -82,14 +83,14 @@ body {
 
     .ace_editor {
       background: #241927;
-      // margin-left: 20px;
+      font-family: $console-font-family;
     }
   }
 
   &__console {
     background-color: $console-background;
     color: $console-text-color;
-    font-size: 14px;
+    font-size: 16px;
     right: 0;
     top: 0;
     bottom: 0;
@@ -134,7 +135,7 @@ body {
       border: 0;
       padding: 12px 14px;
       border-radius: 5px;
-      font-size: 1.2em;
+      font-size: 15px;
       outline: none;
       cursor: pointer;
 
@@ -151,8 +152,8 @@ body {
     &__interpreter-info {
       float: left;
       color: gray;
-      font-size: 0.8em;
-      margin: 30px 0 0 10px;
+      font-size: 0.9em;
+      margin: 28px 0 0 10px;
       color: #816988;
     }
 
