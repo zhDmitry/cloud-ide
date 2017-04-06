@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono);
+@import url(https://fonts.googleapis.com/css?family=Inconsolata);
 @import "vars.scss";
 
 html, body {
@@ -207,6 +207,22 @@ body {
       text-decoration: none;
     }
 
+    button {
+      margin-left: 2px;
+      background-color: $current-tab-background;
+      border: none;
+      color: gray;
+      font-size: 1.3em;
+      display: inline-block;
+      margin-top: -9px;
+      margin-right: -4px;
+      outline: none;
+
+      &:hover {
+        color: orange;
+      }
+    }
+
     &--current {
       background: $current-tab-background;
 
@@ -220,7 +236,7 @@ body {
         padding: 10px 13px;
 
         a {
-        font-size: 1.3em;
+        font-size: 1.5em;
           margin-top: -32px;
           line-height: 0.7em;
           color: #FFE7FF;

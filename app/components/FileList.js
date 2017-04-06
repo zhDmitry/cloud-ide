@@ -3,7 +3,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 
-import {createFile, renameFile, openFile} from 'actions/files';
+import {createFile, deleteFile, 
+        renameFile, openFile} from 'actions/files';
 
 class FileRenameForm extends React.Component {
   constructor(props) {
@@ -69,12 +70,18 @@ class FileItem extends React.Component {
     this.setState({rename: false});
   }
 
+  handleRemove() {
+    const {path, dispatch, files} = this.props;
+    dispatch(deleteFile(path));
+  }
+
   render() {
     const {path, current, block} = this.props;
+    const isCurrent = path == current;
     return (
       <li className={classNames({
         [block + "__item"]: true,
-        [block + "__item--current"]: path == current
+        [block + "__item--current"]: isCurrent
       })}>
         <a href="#" 
            onDoubleClick={this.handleFileRename.bind(this)}
@@ -87,6 +94,13 @@ class FileItem extends React.Component {
           )}
           {!this.state.rename && path}
         </a>
+        {isCurrent && (
+          <button
+              onClick={this.handleRemove.bind(this)}
+              className={block + "__remove-button"}>
+            {String.fromCharCode(10799)}
+          </button>
+        )}
       </li>
     );
   }
