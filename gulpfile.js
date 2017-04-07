@@ -11,6 +11,9 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var stringify = require('stringify');
 var yaml = require('yamljs');
+var babel = require("gulp-babel");
+var addsrc = require('gulp-add-src');
+var merge = require('merge2');
 
 function compile(watch) {
   var bundler = watchify(
@@ -50,9 +53,13 @@ function compile(watch) {
 function buildWorker(name, scripts) {
   var workerName = 'workers/' + name + '.js',
       workerBundle = name + '.worker.js';
-  return gulp.src(scripts.concat([workerName]))
-           .pipe(concat(workerBundle))
-           .pipe(gulp.dest('./build/'));
+
+  var base = gulp.src(scripts);
+  var worker = gulp.src(workerName).pipe(babel());
+
+  return merge(base, worker)
+         .pipe(concat(workerBundle))
+         .pipe(gulp.dest('./build/'));
 }
 
 gulp.task('buildWorkers', function() {

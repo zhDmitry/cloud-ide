@@ -1,13 +1,13 @@
-function sendMessage(name, message) {
+let sendMessage = (name, message) => {
   self.postMessage(JSON.stringify({
     type: name,
     data: message
   }));
 }
 
-function run(source) {
+let run = source => {
   var parser = new BrainfuckParser(),
-      output = "";
+      output;
   try {
     output = parser.parse(source)
     sendMessage('stdout', output);
@@ -20,6 +20,4 @@ function run(source) {
   sendMessage('exit');
 }
 
-self.addEventListener('message', function(e) {
-  run(e.data);
-}, false);
+self.addEventListener('message', (e) => run(e.data));

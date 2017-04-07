@@ -1,14 +1,14 @@
 Opal.load('opal-parser');
 
-function sendMessage(name, message) {
+let sendMessage = (name, message) => {
   self.postMessage(JSON.stringify({
     type: name,
     data: message
   }));
 }
 
-function run(source) {
-  Opal.gvars.stdout.write_proc = function (output) {
+let run = (source) => {
+  Opal.gvars.stdout.write_proc = output => {
     sendMessage('stdout', output);
     sendMessage('stdout', "\n");
   }
@@ -24,6 +24,4 @@ function run(source) {
   sendMessage('exit');
 }
 
-self.addEventListener('message', function(e) {
-  run(e.data);
-}, false);
+self.addEventListener('message', (e) => run(e.data));

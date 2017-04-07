@@ -1,15 +1,15 @@
-function readModule(module) {
-  return Sk.builtinFiles["files"][module];
-}
+let readModule = module => (
+  Sk.builtinFiles["files"][module]
+);
 
-function sendMessage(name, message) {
+let sendMessage = (name, message) => {
   self.postMessage(JSON.stringify({
     type: name,
     data: message
   }));
 }
 
-function run(source) {
+let run = source => {
   Sk.configure({
     read: readModule,
     output: function (output) {
@@ -29,6 +29,4 @@ function run(source) {
   sendMessage('exit');
 }
 
-self.addEventListener('message', function(e) {
-  run(e.data);
-}, false);
+self.addEventListener('message', (e) => run(e.data));

@@ -57,7 +57,7 @@ class CodeEditor extends React.Component {
         value={this.state.buffer}
         highlightActiveLine={false}
         editorProps={{
-          $blockScrolling: true
+          $blockScrolling: Infinity
         }}
         onChange={this.handleChange.bind(this)} />
     );
