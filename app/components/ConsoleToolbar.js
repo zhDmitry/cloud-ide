@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {setPreference} from 'actions/preferences';
 import {getExtension} from 'helpers';
-import {InterpreterInfo} from 'interpreters/constants';
+import {byExtension} from 'interpreters';
 
 class ConsoleToolbar extends React.Component {
   handleRunButton(event) {
@@ -22,7 +22,7 @@ class ConsoleToolbar extends React.Component {
     const block = this.props.className;
     const {preferences, currentFile} = this.props;
     const extension = getExtension(currentFile);
-    const interpreterInfo = InterpreterInfo[extension];
+    const interpreterInfo = byExtension(extension);
 		return (
 			<div className={block}>
         <button 
@@ -31,7 +31,7 @@ class ConsoleToolbar extends React.Component {
           {String.fromCharCode(9654)}
         </button>
         <div className={block + "__interpreter-info"}>
-          {interpreterInfo}
+          {interpreterInfo.description}
         </div>
         <label className={block + "__live-coding"}>
           <input 

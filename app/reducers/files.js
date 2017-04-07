@@ -4,9 +4,9 @@ import {SAVE_FILE, CREATE_FILE, DELETE_FILE,
         OPEN_FILE, RENAME_FILE} from 'actions/files';
 
 const initialState = {
-  'hello.py': require('hello.py'),
-  'hello.rb': require('hello.rb'),
-  'hey.bf': require('hey.bf')
+  'hello.py': require('examples/hello.py'),
+  'hello.rb': require('examples/hello.rb'),
+  'hey.bf': require('examples/hey.bf')
 };
 
 export function files(state=initialState, action) {

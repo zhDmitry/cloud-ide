@@ -6,7 +6,7 @@ import 'brace/mode/ruby';
 import 'brace/theme/tomorrow_night';
 
 import {getExtension} from 'helpers';
-import {PYTHON, RUBY} from 'interpreters/constants';
+import {byExtension} from 'interpreters';
 
 class CodeEditor extends React.Component {
 
@@ -36,10 +36,7 @@ class CodeEditor extends React.Component {
   }
 
   getMode(extension) {
-    return {
-      [PYTHON]: "python",
-      [RUBY]: "ruby"
-    }[extension]
+    return byExtension(extension).editorMode;
   }
 
   render() {

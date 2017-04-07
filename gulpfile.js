@@ -10,18 +10,19 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var stringify = require('stringify');
+var yaml = require('yamljs');
 
 function compile(watch) {
   var bundler = watchify(
       browserify('./app/main.js', {
         debug: true,
-        paths: ['./app/', './examples/']
+        paths: ['./app/', './']
       }).transform(
         babelify.configure({
           stage: 0
         })
       ).transform(
-        stringify(['.py', '.rb', '.md'])
+        stringify(['.py', '.rb', '.md', '.bf', '.yaml'])
       )
   );
 
@@ -56,21 +57,16 @@ function buildWorker(name, scripts) {
 
 gulp.task('buildWorkers', function() {
   var bowerPath = "./bower_components/"
+  var interpreters = yaml.load('./interpreters.yaml');
 
-  buildWorker('opal', [
-    bowerPath + 'opal/opal/current/opal.min.js',
-    bowerPath + 'opal/opal/current/opal-parser.min.js',
-  ]);
+  Object.keys(interpreters).forEach(function (key) {
+    var interpreter = interpreters[key];
+    var includes = interpreter.includes.map(function (path) {
+      return path.replace("{bowerPath}", bowerPath);
+    });
 
-  buildWorker('skulpt', [
-    bowerPath + 'skulpt/skulpt.min.js',
-    bowerPath + 'skulpt/skulpt-stdlib.js',
-  ]);
-
-  buildWorker('brainfuck', [
-    bowerPath + 'brainfuck.js/src/brainfuck.min.js'
-  ]);
-  
+    buildWorker(key, includes)
+  });
 });
 
 gulp.task('sass', function () {
@@ -92,6 +88,5 @@ gulp.task('compress', function() {
 
 gulp.task('js', function() { return compile(); });
 gulp.task('watch', function() { return compile(true); });
-gulp.task('build', ['concat', 'js', 'buildWorkers', 'sass']);
-
+gulp.task('build', ['js', 'buildWorkers', 'sass']);
 gulp.task('default', ['watch', 'watch-sass']);

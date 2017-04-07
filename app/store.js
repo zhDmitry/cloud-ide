@@ -12,7 +12,7 @@ const persistedReducers = [
 const createPersistentStore = compose(
   persistState(persistedReducers)
 )(applyMiddleware(
-  thunkMiddleware
+	thunkMiddleware
 )(createStore));
 
 const store = createPersistentStore(

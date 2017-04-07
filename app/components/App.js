@@ -10,7 +10,7 @@ import FileList from 'components/FileList'
 import {openFile, saveFile} from 'actions/files';
 import {writeLine, flush, runScript} from 'actions/terminal';
 import {write, error} from 'actions/terminal';
-import {getInterpreter} from 'interpreters';
+import {byFileName} from 'interpreters';
 
 
 class App extends React.Component {
@@ -22,7 +22,7 @@ class App extends React.Component {
   handleRun() {
     const {dispatch, currentFile} = this.props;
     const buffer = this.refs.editor.getBuffer();
-    const interpret = getInterpreter(currentFile);
+    const interpret = byFileName(currentFile);
 
     interpret(
       buffer, 

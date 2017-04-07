@@ -1,0 +1,34 @@
+---
+skulpt:
+  description: "Python (Skulpt)"
+  extension: "py"
+  workerPath: "build/skulpt.worker.js"
+  editorMode: "python"
+  includes:
+    - '{bowerPath}skulpt/skulpt.min.js'
+    - '{bowerPath}skulpt/skulpt-stdlib.js'
+  parsingErrors:
+    - ParseError
+    - TokenError
+  isDefault: true
+
+opal:
+  description: "Ruby (Opal)"
+  extension: "rb"
+  workerPath: "build/opal.worker.js"
+  editorMode: "ruby"
+  includes:
+    - '{bowerPath}opal/opal/current/opal.min.js'
+    - '{bowerPath}opal/opal/current/opal-parser.min.js'
+  parsingErrors:
+    - SyntaxError
+    - RuntimeError
+
+brainfuck:
+  description: "Brainfuck"
+  extension: "bf"
+  workerPath: "build/brainfuck.worker.js"
+  editorMode: "ruby"
+  includes:
+    - '{bowerPath}brainfuck.js/src/brainfuck.min.js'
+  parsingErrors: []

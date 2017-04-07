@@ -5,7 +5,7 @@ Live coding in your browser with your favourite language.
 
 ### Features
 
-- Currently supports Python, Ruby, and Brainfuck.
+- Currently supports Python, Ruby, and Brainfuck
 - Runs on web workers.
 - Uses localStorage API for your changes.
 
