@@ -66,6 +66,10 @@ gulp.task('buildWorkers', function() {
     bowerPath + 'skulpt/skulpt.min.js',
     bowerPath + 'skulpt/skulpt-stdlib.js',
   ]);
+
+  buildWorker('brainfuck', [
+    bowerPath + 'brainfuck.js/src/brainfuck.min.js'
+  ]);
   
 });
 

@@ -5,7 +5,7 @@ Live coding in your browser with your favourite language.
 
 ### Features
 
-- Currently supports Python and Ruby.
+- Currently supports Python, Ruby, and Brainfuck.
 - Runs on web workers.
 - Uses localStorage API for your changes.
 
@@ -17,9 +17,11 @@ Live coding in your browser with your favourite language.
 
 ### Todo
 - Languages
+	- Brainfuck
 	- LiveScript
 	- SibilantJS or LispyScript
 	- Elm-lang
+	- Any language you want
 
 ### Development
 

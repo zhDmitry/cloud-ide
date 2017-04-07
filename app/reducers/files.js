@@ -5,7 +5,8 @@ import {SAVE_FILE, CREATE_FILE, DELETE_FILE,
 
 const initialState = {
   'hello.py': require('hello.py'),
-  'hello.rb': require('hello.rb')
+  'hello.rb': require('hello.rb'),
+  'hey.bf': require('hey.bf')
 };
 
 export function files(state=initialState, action) {

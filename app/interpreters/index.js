@@ -1,11 +1,13 @@
 import {python} from 'interpreters/python';
 import {ruby} from 'interpreters/ruby';
+import {brainfuck} from 'interpreters/brainfuck';
 import {getExtension} from 'helpers';
-import {PYTHON, RUBY} from 'interpreters/constants'
+import * as constants from 'interpreters/constants'
 
 export const mapping = {
-  [PYTHON]: python,
-  [RUBY]: ruby
+  [constants.PYTHON]: python,
+  [constants.RUBY]: ruby,
+  [constants.BRAINFUCK]: brainfuck,
 }
 
 export function getInterpreter(currentFile,
