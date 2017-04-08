@@ -12,7 +12,6 @@ import {writeLine, flush, runScript} from 'actions/terminal';
 import {write, error} from 'actions/terminal';
 import {byFileName} from 'interpreters';
 
-
 class App extends React.Component {
   componentDidMount() {
     this.handleRun();

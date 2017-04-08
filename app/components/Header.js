@@ -8,9 +8,7 @@ export default class Header extends React.Component {
     return (
       <header className={block}>
         <div className={block + "__logo"}>
-          <a href="/">
-            
-          </a>
+          <a href="//github.com/fatiherikli/fil"></a>
         </div>
         <div className={block + "__content"}>
           {this.props.children}
