@@ -28,7 +28,7 @@ body {
       display: inline-block;
       border-radius: 10px;
 
-      &:before {
+      &:after, &:before {
         width: 11px;
         height: 11px;
         margin-left: 12px;
@@ -41,16 +41,17 @@ body {
       }
 
       &:after {
-        width: 11px;
-        height: 11px;
         margin-left: 28px;
         margin-top: 15px;
-        display: inline-block;
-        position: absolute;
         background: #4A99FF;
-        content: "";
-        border-radius: 50%;
       }
+
+      &:before {
+        margin-left: 12px;
+        margin-top: 15px;
+        background: #FFDB51;
+      }
+      
     }
   }
 
