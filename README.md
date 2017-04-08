@@ -1,6 +1,8 @@
 ### Fil
 Live coding in your browser with your favourite language.
 
+<http://fatiherikli.github.io/fil/>
+
 ![fil](http://i.imgur.com/LaYtgWe.png)
 
 ### Features
@@ -23,7 +25,7 @@ Live coding in your browser with your favourite language.
 	- Any language you want
 - Build electron package.
 
-### Development Env.
+### Development
 
 First of all, clone the repository, and install NPM. After that, run the following commands.
 
