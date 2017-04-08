@@ -12,7 +12,6 @@ var rename = require('gulp-rename');
 var stringify = require('stringify');
 var yaml = require('yamljs');
 var babel = require("gulp-babel");
-var addsrc = require('gulp-add-src');
 var merge = require('merge2');
 
 function compile(watch) {
