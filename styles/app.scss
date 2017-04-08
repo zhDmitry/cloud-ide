@@ -31,24 +31,20 @@ body {
       &:after, &:before {
         width: 11px;
         height: 11px;
-        margin-left: 12px;
         margin-top: 15px;
         display: inline-block;
         position: absolute;
-        background: #FFDB51;
         content: "";
         border-radius: 50%;
       }
 
       &:after {
         margin-left: 28px;
-        margin-top: 15px;
         background: #4A99FF;
       }
 
       &:before {
         margin-left: 12px;
-        margin-top: 15px;
         background: #FFDB51;
       }
       
