@@ -18,13 +18,13 @@ class ConsoleToolbar extends React.Component {
     dispatch(setPreference('liveCoding', checked));
   }
 
-	render() {
+  render() {
     const block = this.props.className;
     const {preferences, currentFile} = this.props;
     const extension = getExtension(currentFile);
     const interpreterInfo = byExtension(extension);
-		return (
-			<div className={block}>
+    return (
+      <div className={block}>
         <button 
             className={block + "__run-button"}
             onClick={this.handleRunButton.bind(this)}>
@@ -41,8 +41,8 @@ class ConsoleToolbar extends React.Component {
           Live coding
         </label>
       </div>
-		);
-	}
+    );
+  }
 }
 
 function select(state) {
