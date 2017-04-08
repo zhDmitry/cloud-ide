@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import { SET_PREFERENCE } from 'actions/preferences';
+import {SET_PREFERENCE} from 'actions/preferences';
 
 const initialState = {
   liveCoding: true

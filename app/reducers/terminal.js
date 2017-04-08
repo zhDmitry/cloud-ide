@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import { FLUSH, WRITE, ERROR, BREAK } from 'actions/terminal';
+import {FLUSH, WRITE, ERROR, BREAK} from 'actions/terminal';
 
 const initialState = {
   lines: [],
