@@ -3,7 +3,7 @@ Live coding in your browser with your favourite language.
 
 <http://fatiherikli.github.io/fil/>
 
-![fil](http://i.imgur.com/ATdVU2O.png)
+![fil](http://i.imgur.com/OWK7TS6.png)
 
 ### Features
 
