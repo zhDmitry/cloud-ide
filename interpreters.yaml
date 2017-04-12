@@ -32,3 +32,11 @@ brainfuck:
   includes:
     - '{bowerPath}brainfuck.js/src/brainfuck.min.js'
   parsingErrors: []
+
+javascript:
+  description: "Javascript"
+  extension: "js"
+  workerPath: "build/javascript.worker.js"
+  editorMode: "javascript"
+  includes: []
+  parsingErrors: ["SyntaxError"]

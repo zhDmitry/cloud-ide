@@ -3,6 +3,7 @@ import AceEditor from 'react-ace';
 
 import 'brace/mode/python';
 import 'brace/mode/ruby';
+import 'brace/mode/javascript';
 import 'brace/theme/tomorrow_night';
 
 import {getExtension} from 'helpers';
