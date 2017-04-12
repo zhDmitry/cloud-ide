@@ -6,6 +6,7 @@ import {SAVE_FILE, CREATE_FILE, DELETE_FILE,
 const initialState = {
   'hello.py': require('examples/hello.py'),
   'hello.rb': require('examples/hello.rb'),
+  'hello.js': require('examples/hello._js'),
   'hey.bf': require('examples/hey.bf')
 };
 
