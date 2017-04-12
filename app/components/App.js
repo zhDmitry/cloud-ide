@@ -13,6 +13,13 @@ import {write, error} from 'actions/terminal';
 import {byFileName} from 'interpreters';
 
 class App extends React.Component {
+  /**
+   * States Injected:
+   * files: Current file list
+   * currentFile: Current file name
+   * terminal: The terminal instance
+   * preferences: the user preference
+   */
   componentDidMount() {
     this.handleRun();
     this.lazyRun = _.debounce(this.handleRun, 300);
@@ -76,7 +83,7 @@ class App extends React.Component {
   }
 }
 
-function select(state) {
+function appState(state) {
   return {
     files: state.files,
     currentFile: state.currentFile,
@@ -85,4 +92,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(App);
+export default connect(appState)(App);
