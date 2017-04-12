@@ -47,7 +47,7 @@ body {
         margin-left: 12px;
         background: #FFDB51;
       }
-      
+
     }
   }
 
@@ -163,6 +163,10 @@ body {
       input {
         margin-right: 6px;
       }
+    }
+
+    &__live-coding-text {
+      color: #816988;
     }
   }
 
@@ -321,7 +325,7 @@ body {
     border: 1px solid #695227;
   }
 
-  &--builtin { 
+  &--builtin {
     color: #80A1BD;
   }
 

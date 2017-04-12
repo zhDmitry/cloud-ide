@@ -14,7 +14,7 @@ class ConsoleToolbar extends React.Component {
   handleLiveCodingCheckbox(event) {
     const checked = event.target.checked;
     const {dispatch} = this.props;
-    
+
     dispatch(setPreference('liveCoding', checked));
   }
 
@@ -25,7 +25,7 @@ class ConsoleToolbar extends React.Component {
     const interpreterInfo = byExtension(extension);
     return (
       <div className={block}>
-        <button 
+        <button
             className={block + "__run-button"}
             onClick={this.handleRunButton.bind(this)}>
           {String.fromCharCode(9654)}
@@ -34,11 +34,11 @@ class ConsoleToolbar extends React.Component {
           {interpreterInfo.description}
         </div>
         <label className={block + "__live-coding"}>
-          <input 
+          <input
             onChange={this.handleLiveCodingCheckbox.bind(this)}
             checked={preferences.liveCoding}
             type="checkbox" />
-          Live coding
+          <span className={block + "__live-coding-text"}>Live coding</span>
         </label>
       </div>
     );
