@@ -45,8 +45,8 @@ class App extends React.Component {
 
   handleEditorChange() {
     let {preferences} = this.props,
-        source = this.refs.editor.getBuffer();
-    if (preferences.liveCoding && source) {
+        {editor} = this.refs;
+    if (preferences.liveCoding && editor) {
       this.lazyRun();
     };
   }
