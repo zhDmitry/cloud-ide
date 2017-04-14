@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import {createFile, deleteFile, 
         renameFile, openFile} from 'actions/files';
+import {buildPermalink} from 'helpers';
 
 class FileRenameForm extends React.Component {
   constructor(props) {
@@ -50,6 +51,13 @@ class FileItem extends React.Component {
       rename: props.rename
     };
   }
+
+  buildPermalink(path) {
+    const {files} = this.props,
+          source = files[path];
+
+    return buildPermalink({path, source});
+  }
   
   handleFileRename(event) {
     const {files, dispatch} = this.props;
@@ -83,18 +91,23 @@ class FileItem extends React.Component {
         [block + "__item"]: true,
         [block + "__item--current"]: isCurrent
       })}>
-        <a href="#" 
+        {isCurrent && (
+          <a className={block + "__permalink"}
+             href={this.buildPermalink(path)}
+             target="_blank">permalink</a>
+        )}
+        <a href="#"
+           target="_blank" 
+           className={block + "__file-name"}
            onDoubleClick={this.handleFileRename.bind(this)}
            onClick={this.handleClick.bind(this)}>
-          {this.state.rename && (
+          {this.state.rename?
             <FileRenameForm 
                 block={block}
                 path={path}
-                onRename={this.renameFile.bind(this)} />
-          )}
-          {!this.state.rename && path}
+                onRename={this.renameFile.bind(this)} />: path}
         </a>
-        {isCurrent && (
+        {isCurrent && !this.state.rename && (
           <button
               onClick={this.handleRemove.bind(this)}
               className={block + "__remove-button"}>

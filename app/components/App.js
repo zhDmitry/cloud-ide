@@ -7,10 +7,11 @@ import CodeEditor from 'components/CodeEditor';
 import Console from 'components/Console';
 import FileList from 'components/FileList'
 
-import {openFile, saveFile} from 'actions/files';
+import {openFile, saveFile, createFile} from 'actions/files';
 import {writeLine, flush, runScript} from 'actions/terminal';
 import {write, error} from 'actions/terminal';
 import {byFileName} from 'interpreters';
+import {loadPermalink} from 'helpers';
 
 class App extends React.Component {
   /**
@@ -23,6 +24,7 @@ class App extends React.Component {
   componentDidMount() {
     this.handleRun();
     this.lazyRun = _.debounce(this.handleRun, 300);
+    this.loadPermalink();
   }
   
   handleRun() {
@@ -30,12 +32,26 @@ class App extends React.Component {
     const buffer = this.refs.editor.getBuffer();
     const interpret = byFileName(currentFile);
 
-    interpret(
-      buffer, 
-      (out) => dispatch(write(out)),
-      (err) => dispatch(error(err)),
-      (clr) => dispatch(flush())
-    );
+    if (buffer) {
+      interpret(
+        buffer, 
+        (out) => dispatch(write(out)),
+        (err) => dispatch(error(err)),
+        (clr) => dispatch(flush())
+      );
+    }
+  }
+
+  loadPermalink() {
+    const {hash} = window.location,
+          {dispatch} = this.props;
+
+    if (hash) {
+      let bundle = loadPermalink(hash),
+          {path, source} = bundle;
+      dispatch(createFile(path, source));
+      dispatch(openFile(path));
+    }
   }
   
   handleSave(source) {
