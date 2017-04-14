@@ -1,6 +1,8 @@
 import _ from 'underscore';
 import React from 'react';
 import {connect} from 'react-redux';
+import queryString from 'query-string';
+import classNames from 'classnames';
 
 import Header from 'components/Header';
 import CodeEditor from 'components/CodeEditor';
@@ -67,12 +69,22 @@ class App extends React.Component {
     };
   }
 
+  isEmbedMode() {
+    const {search} = window.location,
+          parsed = queryString.parse(search);
+    return !!parsed.embed;
+  }
+
   render() {
     const block = "editor";
     const {dispatch, files, currentFile, terminal} = this.props;
+    const embedMode = this.isEmbedMode();
 
     return (
-      <div className={block}>
+      <div className={classNames({
+        [block]: true,
+        [block + "--embed"]: embedMode
+      })}>
         <div className={block + "__code-screen"}>
           <Header>
             <FileList 

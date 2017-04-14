@@ -349,3 +349,28 @@ body {
     color: #B8EA6C;
   }
 }
+
+.editor--embed {
+    
+    .file-list__item:not(.file-list__item--current),
+    .file-list__remove-button,
+    .file-list__permalink {
+      display: none;
+    }
+
+    .file-list__item--current {
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+      border-right: none;
+    }
+
+    .editor__code-screen {
+      width: 50%;
+    }
+
+    .editor__console {
+      width: 50%;
+    }
+
+}
+
