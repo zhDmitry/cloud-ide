@@ -4,7 +4,7 @@ import { FLUSH, WRITE, ERROR, BREAK } from 'actions/terminal';
 
 const initialState = {
   lines: [],
-  errors: []
+  error: null
 };
 
 export function lines(state = [], action) {
@@ -33,7 +33,7 @@ export function terminal(state = initialState, action) {
 
   case ERROR:
     return _.assign({}, state, {
-      errors: [...state.errors, action.line]
+      error: action.line
     });
 
   case FLUSH:

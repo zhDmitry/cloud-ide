@@ -1,20 +1,26 @@
 import React from 'react';
-import CodeMirror from 'react-code-mirror';
+// import CodeMirror from 'react-code-mirror';
 
-import 'codemirror/mode/python/python';
+//import 'codemirror/mode/python/python';
+
+import brace from 'brace';
+import AceEditor from 'react-ace';
+
+import 'brace/mode/python';
+import 'brace/theme/tomorrow_night';
 
 class CodeEditor extends React.Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      buffer: null
+      buffer: props.value
     };
   }
 
   componentDidMount() {
-    let instance = this.refs.codemirror.editor;
-    instance.setOption('lineNumbers', true);
+    // let instance = this.refs.codemirror.editor;
+    // instance.setOption('lineNumbers', true);
   }
 
   componentWillReceiveProps(next) {
@@ -23,11 +29,8 @@ class CodeEditor extends React.Component {
     });
   }
 
-  handleChange(event) {
-    const buffer = event.target.value;
-
+  handleChange(buffer) {
     if (this.props.autoSave) {
-      // todo: debounce
       this.props.onSave(buffer);
     }
 
@@ -41,12 +44,19 @@ class CodeEditor extends React.Component {
   render() {
     let block = "code-screen";
     return (
-      <CodeMirror
-        ref={"codemirror"} 
+      <AceEditor
+        width={"100%"}
+        height={"100%"}
+        fontSize={14}
+        mode="python"
+        theme="tomorrow_night"
+        ref={"editor"} 
         className={block + "__editor-wrapper"}
-        theme="dracula"
-        defaultValue={this.props.value}
         value={this.state.buffer}
+        highlightActiveLine={false}
+        editorProps={{
+          $blockScrolling: true
+        }}
         onChange={this.handleChange.bind(this)} />
     );
   }

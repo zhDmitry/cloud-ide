@@ -1,19 +1,12 @@
 import _ from "underscore";
 
-import { SAVE_FILE, CREATE_FILE, DELETE_FILE, OPEN_FILE } from 'actions/files';
+import { SAVE_FILE, CREATE_FILE, DELETE_FILE, 
+         OPEN_FILE, RENAME_FILE } from 'actions/files';
 
 const initialState = {
   'hello.py': `
 print 'selam, naber?'
-print 'selam, naber?'
-print 'selam, naber?'
-print 'selam, naber?'
-print 'selam, naber?'
-print 'selam, naber?'
-print 'selam, naber?'
-print {
-  str(i): i * 'selam' for i in range(1, 10)
-}
+print 'selam'
 `.trim(),
   'deneme.py': 'print "deneme";',
   'lists.py': 'print [1, 2, 3, 4];',
@@ -33,6 +26,13 @@ export function files(state = initialState, action) {
     return _.assign({}, state, {
       [action.path]: action.text
     });
+
+  case RENAME_FILE:
+    return _.assign(
+      {}, 
+      _.omit(state, action.path), 
+      {[action.newPath]: state[action.path]}
+    );
   
   default:
     return state;
