@@ -16,7 +16,11 @@ function compile(watch) {
       browserify('./app/main.js', {
         debug: true,
         paths: ['./app/']
-      }).transform(babelify)
+      }).transform(
+        babelify.configure({
+          stage: 0
+        })
+      )
   );
 
   function rebundle() {

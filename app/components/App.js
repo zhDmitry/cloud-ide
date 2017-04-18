@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -9,10 +10,11 @@ import FileList from 'components/FileList'
 import {openFile, saveFile} from 'actions/files';
 import {writeLine, flush, runScript} from 'actions/terminal'
 
-class App extends React.Component {
 
+class App extends React.Component {
   componentDidMount() {
     this.handleRun();
+    this.lazyRun = _.debounce(this.handleRun, 300);
   }
   
   handleRun() {
@@ -21,16 +23,16 @@ class App extends React.Component {
     dispatch(flush());
     dispatch(runScript(buffer));
   }
-
+  
   handleSave(source) {
     const {dispatch, currentFile} = this.props;
     dispatch(saveFile(currentFile, source));
   }
 
   handleEditorChange(source) {
-    const {preferences} = this.props;
+    let {preferences} = this.props;
     if (preferences.liveCoding) {
-      this.handleRun();
+      this.lazyRun();
     };
   }
 
