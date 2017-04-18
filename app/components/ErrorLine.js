@@ -7,9 +7,9 @@ export default class ErrorLine extends React.Component {
 
     return (
       <div className={block}>
-        <p className={block + "__description"}>
+        <pre className={block + "__description"}>
           {error}
-        </p>
+        </pre>
       </div>
     );
   }

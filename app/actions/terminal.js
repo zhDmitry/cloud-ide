@@ -1,5 +1,3 @@
-import {interpret} from 'interpreter';
-
 export const WRITE = 'WRITE';
 export const ERROR = 'ERROR';
 export const BREAK = 'BREAKLINE';
@@ -22,14 +20,4 @@ export function error(line) {
 
 export function flush() {
   return { type: FLUSH };
-}
-
-export function runScript(source) {
-  return dispatch => {
-      interpret(
-        source, 
-        (out) => dispatch(write(out)),
-        (err) => dispatch(error(err))
-      );
-  };
 }

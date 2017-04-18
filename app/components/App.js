@@ -10,18 +10,19 @@ import FileList from 'components/FileList'
 import {openFile, saveFile} from 'actions/files';
 import {writeLine, flush, runScript} from 'actions/terminal';
 import {write, error} from 'actions/terminal';
-import {interpret} from 'interpreter';
+import {getInterpreter} from 'interpreters';
 
 
 class App extends React.Component {
   componentDidMount() {
     this.handleRun();
-    this.lazyRun = _.debounce(this.handleRun, 300);
+    this.lazyRun = _.debounce(this.handleRun, 100);
   }
   
   handleRun() {
-    const {dispatch} = this.props;
+    const {dispatch, currentFile} = this.props;
     const buffer = this.refs.editor.getBuffer();
+    const interpret = getInterpreter(currentFile);
 
     interpret(
       buffer, 
@@ -36,9 +37,10 @@ class App extends React.Component {
     dispatch(saveFile(currentFile, source));
   }
 
-  handleEditorChange(source) {
-    let {preferences} = this.props;
-    if (preferences.liveCoding) {
+  handleEditorChange() {
+    let {preferences} = this.props,
+        source = this.refs.editor.getBuffer();
+    if (preferences.liveCoding && source) {
       this.lazyRun();
     };
   }
@@ -49,24 +51,27 @@ class App extends React.Component {
 
     return (
       <div className={block}>
+        <div className={block + "__code-screen"}>
           <Header>
-            <FileList files={files}
-                      onOpenFile={path => dispatch(openFile(path))}
-                      current={currentFile} />
+            <FileList 
+              files={files}
+              onOpenFile={path => dispatch(openFile(path))}
+              current={currentFile} />
           </Header>
-          <div className={block + "__code-screen"}>
-            <CodeEditor ref="editor"
-                        autoSave={true}
-                        onChange={this.handleEditorChange.bind(this)}
-                        onSave={this.handleSave.bind(this)} 
-                        value={files[currentFile]} />
-          </div>
-          <div className={block + "__console"}>
-            <Console lines={terminal.lines} 
-                     error={terminal.error}
-                     ref="console"
-                     onRun={this.handleRun.bind(this)} />
-          </div>
+          <CodeEditor 
+            ref="editor"
+            currentFile={currentFile}
+            autoSave={true}
+            onChange={this.handleEditorChange.bind(this)}
+            onSave={this.handleSave.bind(this)} 
+            value={files[currentFile]} />
+        </div>
+        <div className={block + "__console"}>
+          <Console lines={terminal.lines} 
+                   error={terminal.error}
+                   ref="console"
+                   onRun={this.handleRun.bind(this)} />
+        </div>
       </div>
     );
   }

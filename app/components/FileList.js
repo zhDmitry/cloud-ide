@@ -29,11 +29,11 @@ class FileRenameForm extends React.Component {
   }
 
   render() {
-    const {block} = this.props;
+    const block = this.props.block + "__rename-form";
     return (
-      <form block={block + "__rename-form"}
-            onSubmit={this.onSubmit.bind(this)}>
-        <input 
+      <form className={block} onSubmit={this.onSubmit.bind(this)}>
+        <input
+          className={block + "__input"}
           value={this.state.path}
           ref="fileName"
           onChange={this.handleChange.bind(this)} />

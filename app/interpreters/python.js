@@ -4,6 +4,11 @@ export function readModule(module) {
   return Sk.builtinFiles["files"][module];
 }
 
+export const ParsingErrors = [
+  'ParseError', 
+  'TokenError'
+];
+
 export function interpret(source, stdout, stderr, flush) {
   let delayed = deferred();
 
@@ -11,9 +16,9 @@ export function interpret(source, stdout, stderr, flush) {
     delayed.promise().then(_ => stdout(output));
   };
 
-	Sk.configure({
-  	read: readModule,
-  	output: write
+  Sk.configure({
+    read: readModule,
+    output: write
   });
 
   let flushScreen = true;
@@ -22,7 +27,7 @@ export function interpret(source, stdout, stderr, flush) {
     Sk.importMainWithBody("<stdin>", false, source);
   } catch (e) {
     let writeError = _ => stderr(String(e));
-    if (e instanceof Sk.builtin.ParseError) {
+    if (ParsingErrors.indexOf(e.tp$name) > -1) {
       flushScreen = false;
       writeError();
     } else {

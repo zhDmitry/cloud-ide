@@ -1,13 +1,12 @@
 import React from 'react';
-// import CodeMirror from 'react-code-mirror';
-
-//import 'codemirror/mode/python/python';
-
-import brace from 'brace';
 import AceEditor from 'react-ace';
 
 import 'brace/mode/python';
+import 'brace/mode/ruby';
 import 'brace/theme/tomorrow_night';
+
+import {getExtension} from 'helpers';
+import {PYTHON, RUBY} from 'interpreters/constants';
 
 class CodeEditor extends React.Component {
 
@@ -16,11 +15,6 @@ class CodeEditor extends React.Component {
     this.state = {
       buffer: props.value
     };
-  }
-
-  componentDidMount() {
-    // let instance = this.refs.codemirror.editor;
-    // instance.setOption('lineNumbers', true);
   }
 
   componentWillReceiveProps(next) {
@@ -41,16 +35,27 @@ class CodeEditor extends React.Component {
     this.props.onChange();
   }
 
+  getMode(extension) {
+    return {
+      [PYTHON]: "python",
+      [RUBY]: "ruby"
+    }[extension]
+  }
+
   render() {
-    let block = "code-screen";
+    let block = "code-screen",
+        fileName = this.props.currentFile,
+        extension = getExtension(fileName),
+        mode = this.getMode(extension);
     return (
       <AceEditor
-        width={"100%"}
+        width={"auto"}
         height={"100%"}
         fontSize={14}
-        mode="python"
+        mode={mode}
         theme="tomorrow_night"
         ref={"editor"} 
+        showGutter={false}
         className={block + "__editor-wrapper"}
         value={this.state.buffer}
         highlightActiveLine={false}

@@ -18,6 +18,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-sass": "^2.0.4",
     "jquery": "^2.1.4",
+    "opal": "^0.6.4",
     "react": "^0.13.3",
     "react-ace": "^2.2.1",
     "reactify": "^1.1.1",

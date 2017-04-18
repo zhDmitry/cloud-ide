@@ -9,7 +9,7 @@ export default class Header extends React.Component {
       <header className={block}>
         <div className={block + "__logo"}>
           <a href="/">
-            <img src={imagePath} width={50} height={50} />
+            
           </a>
         </div>
         <div className={block + "__content"}>

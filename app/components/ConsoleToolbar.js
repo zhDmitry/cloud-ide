@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {setPreference} from 'actions/preferences';
+import {getExtension} from 'helpers';
+import {InterpreterInfo} from 'interpreters/constants';
 
 class ConsoleToolbar extends React.Component {
   handleRunButton(event) {
@@ -18,8 +20,9 @@ class ConsoleToolbar extends React.Component {
 
 	render() {
     const block = this.props.className;
-    const {preferences} = this.props;
-    
+    const {preferences, currentFile} = this.props;
+    const extension = getExtension(currentFile);
+    const interpreterInfo = InterpreterInfo[extension];
 		return (
 			<div className={block}>
         <button 
@@ -27,6 +30,9 @@ class ConsoleToolbar extends React.Component {
             onClick={this.handleRunButton.bind(this)}>
           {String.fromCharCode(9654)}
         </button>
+        <div className={block + "__interpreter-info"}>
+          {interpreterInfo}
+        </div>
         <label className={block + "__live-coding"}>
           <input 
             onChange={this.handleLiveCodingCheckbox.bind(this)}
@@ -41,7 +47,8 @@ class ConsoleToolbar extends React.Component {
 
 function select(state) {
   return {
-    preferences: state.preferences
+    preferences: state.preferences,
+    currentFile: state.currentFile
   };
 }
 

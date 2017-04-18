@@ -5,10 +5,12 @@ import { SAVE_FILE, CREATE_FILE, DELETE_FILE,
 
 const initialState = {
   'hello.py': `
-print 'selam, naber?'
-print 'selam'
+print 'selams, naber?'
+print [1, 2, 3, 4, 5, 6, range(5)]
+
+
 `.trim(),
-  'deneme.py': 'print "deneme";',
+  'deneme.rb': 'puts "selam"',
   'lists.py': 'print [1, 2, 3, 4];',
 };
 

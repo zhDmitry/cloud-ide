@@ -18,7 +18,6 @@ let createStoreWithMiddleware = applyMiddleware(
 
 let store = createStoreWithMiddleware(rootReducer);
 
-console.log(store.getState())
 
 React.render(
   <Provider store={store}>
