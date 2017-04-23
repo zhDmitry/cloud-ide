@@ -1,6 +1,7 @@
 import * as Actions from 'constants/ActionTypes';
 
 export function write(chunk) {
+  console.log('chunk',chunk);
   if (chunk.charCodeAt() === 10) {
     return breakLine();
   }

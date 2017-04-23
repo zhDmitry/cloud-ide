@@ -1,22 +1,10 @@
 import _ from 'underscore';
-import {getExtension} from 'helpers';
+import { getExtension } from 'helpers';
 import YAML from 'yamljs';
 import interpret from 'interpreters/interpret';
 
 var interpreters = YAML.parse(require('interpreters.yaml'));
 var workers = {};
-
-export function spawnWorker(name) {
-  if (workers[name]) {
-    return workers[name];
-  }
-
-  let interpreter = interpreters[name];
-  let workerPath = interpreter.workerPath;
-  let instance = new Worker(workerPath);
-  workers[name] = instance;
-  return instance;
-}
 
 export function bundle(key) {
   return _.assign({}, interpreters[key], {
@@ -39,7 +27,7 @@ export function byExtension(extension) {
       return bundle(key);
     }
   }
-  
+
   return getDefault();
 }
 
@@ -49,7 +37,6 @@ export function byFileName(path) {
 }
 
 export function getInterpreter(definition) {
-  let worker = spawnWorker(definition.name);
-  let extra = [worker, definition.parsingErrors];
-  return (...args) => interpret(...args, ...extra);
+  console.log(definition);
+  return (...args) => interpret(...args, definition);
 }

@@ -1,52 +1,20 @@
 ---
 skulpt:
-  description: "Python (Skulpt)"
+  description: "Python"
   extension: "py"
-  workerPath: "build/skulpt.worker.js"
   editorMode: "python"
-  includes:
-    - '{bowerPath}skulpt/skulpt.min.js'
-    - '{bowerPath}skulpt/skulpt-stdlib.js'
-  parsingErrors:
-    - ParseError
-    - TokenError
-  isDefault: true
 
 opal:
-  description: "Ruby (Opal)"
+  description: "Ruby"
   extension: "rb"
-  workerPath: "build/opal.worker.js"
   editorMode: "ruby"
-  includes:
-    - '{bowerPath}opal/opal/current/opal.min.js'
-    - '{bowerPath}opal/opal/current/opal-parser.min.js'
-  parsingErrors:
-    - SyntaxError
-    - RuntimeError
-
-brainfuck:
-  description: "Brainfuck"
-  extension: "bf"
-  workerPath: "build/brainfuck.worker.js"
-  editorMode: "ruby"
-  includes:
-    - '{bowerPath}brainfuck.js/src/brainfuck.min.js'
-  parsingErrors: []
 
 javascript:
   description: "Javascript"
   extension: "js"
-  workerPath: "build/javascript.worker.js"
   editorMode: "javascript"
-  includes: []
-  parsingErrors: ["SyntaxError"]
 
-happycalculator:
-  description: "happycalculator"
-  extension: "hpc"
-  workerPath: "build/happycalculator.worker.js"
-  editorMode: "python"
-  includes:
-    - '{bowerPath}lodash/lodash.min.js'
-    - '{bowerPath}happycalculator/src/happycalculator.js'
-  parsingErrors: []
+golang:
+  description: "Golang"
+  extension: "go"
+  editorMode: "go"

@@ -7,7 +7,6 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var babelify = require('babelify');
 var reactify = require('reactify');
-var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
@@ -31,24 +30,24 @@ var config = {
 }
 function compile(watch) {
   var bundler = watchify(
-      browserify('./app/main.js', {
-        debug: true,
-        paths: ['./app/', './']
-      }).transform(
-        babelify.configure({
-          stage: 0
-        })
+    browserify('./app/main.js', {
+      debug: true,
+      paths: ['./app/', './']
+    }).transform(
+      babelify.configure({
+        stage: 0
+      })
       ).transform(
-        stringify(['.py', '.rb', '.md', '.hpc',
-                   '.bf', '.yaml', '._js'])
+      stringify(['.py', '.rb', '.md', '.hpc',
+        '.bf', '.yaml', '._js'])
       )
   );
 
   function rebundle() {
     bundler.bundle()
-      .on('error', function(err) { 
-        console.error(err.message); 
-        this.emit('end'); 
+      .on('error', function (err) {
+        console.error(err.message);
+        this.emit('end');
       })
       .pipe(source('main.js'))
       .pipe(buffer())
@@ -56,7 +55,7 @@ function compile(watch) {
   }
 
   if (watch) {
-    bundler.on('update', function() {
+    bundler.on('update', function () {
       console.log('-> bundling...');
       rebundle();
     });
@@ -67,43 +66,36 @@ function compile(watch) {
 
 function buildWorker(name, scripts) {
   var workerName = 'workers/' + name + '.js',
-      workerBundle = name + '.worker.js';
+    workerBundle = name + '.worker.js';
 
-  var base = gulp.src(scripts);
   var worker = gulp.src(workerName).pipe(babel());
 
-  return merge(base, worker)
-         .pipe(concat(workerBundle))
-         .pipe(gulp.dest('./build/'));
+  return merge(worker)
+    .pipe(concat(workerBundle))
+    .pipe(gulp.dest('./build/'));
 }
 
-gulp.task('buildWorkers', function() {
-  var bowerPath = "./bower_components/"
+gulp.task('buildWorkers', function () {
   var interpreters = yaml.load('./interpreters.yaml');
 
   Object.keys(interpreters).forEach(function (key) {
     var interpreter = interpreters[key];
-    var includes = interpreter.includes.map(function (path) {
-      return path.replace("{bowerPath}", bowerPath);
-    });
-
-    buildWorker(key, includes)
+    buildWorker(key)
   });
 });
 
 gulp.task('sass', function () {
-  gulp.src('./styles/app.scss')
-    .pipe(sass().on('error', sass.logError))
+  gulp.src('./styles/app.css')
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('watch-sass', function() {
-  gulp.watch('./styles/*.scss', ['sass']);
+gulp.task('watch-sass', function () {
+  gulp.watch('./styles/*.css', ['sass']);
 });
 
 //start local dev svr
-gulp.task('connect', function() {
-connect.server({
+gulp.task('connect', function () {
+  connect.server({
     root: ['.'],
     port: config.port,
     base: config.devBaseUrl,
@@ -112,14 +104,14 @@ connect.server({
 
 })
 
-gulp.task('compress', function() {
+gulp.task('compress', function () {
   return gulp.src('build/main.js')
     .pipe(uglify())
     .pipe(rename('main.min.js'))
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('js', function() { return compile(); });
-gulp.task('watch', function() { return compile(true); });
+gulp.task('js', function () { return compile(); });
+gulp.task('watch', function () { return compile(true); });
 gulp.task('build', ['js', 'buildWorkers', 'sass']);
 gulp.task('default', ['watch', 'watch-sass', 'connect']);

@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import queryString from 'query-string';
 import classNames from 'classnames';
 
@@ -9,11 +9,11 @@ import CodeEditor from 'components/CodeEditor';
 import Console from 'components/Console';
 import FileList from 'components/FileList'
 
-import {openFile, saveFile, createFile} from 'actions/files';
-import {writeLine, flush, runScript} from 'actions/terminal';
-import {write, error} from 'actions/terminal';
-import {byFileName} from 'interpreters';
-import {loadPermalink} from 'helpers';
+import { openFile, saveFile, createFile } from 'actions/files';
+import { writeLine, flush, runScript } from 'actions/terminal';
+import { write, error } from 'actions/terminal';
+import { byFileName } from 'interpreters';
+import { loadPermalink } from 'helpers';
 
 class App extends React.Component {
   /**
@@ -28,56 +28,58 @@ class App extends React.Component {
     this.lazyRun = _.debounce(this.handleRun, 300);
     this.loadPermalink();
   }
-  
+
   handleRun() {
-    const {dispatch, currentFile} = this.props;
+    const { dispatch, currentFile } = this.props;
     const buffer = this.refs.editor.getBuffer();
     const interpret = byFileName(currentFile);
-
     if (buffer) {
       interpret(
-        buffer, 
+        buffer,
         (out) => dispatch(write(out)),
         (err) => dispatch(error(err)),
-        (clr) => dispatch(flush())
+        (clr) => dispatch(flush()), {
+          file: currentFile,
+          ...interpret
+        }
       );
     }
   }
 
   loadPermalink() {
-    const {hash} = window.location,
-          {dispatch} = this.props;
+    const { hash } = window.location,
+      { dispatch } = this.props;
 
     if (hash) {
       let bundle = loadPermalink(hash),
-          {path, source} = bundle;
+        { path, source } = bundle;
       dispatch(createFile(path, source));
       dispatch(openFile(path));
     }
   }
-  
+
   handleSave(source) {
-    const {dispatch, currentFile} = this.props;
+    const { dispatch, currentFile } = this.props;
     dispatch(saveFile(currentFile, source));
   }
 
   handleEditorChange() {
-    let {preferences} = this.props,
-        {editor} = this.refs;
+    let { preferences } = this.props,
+      { editor } = this.refs;
     if (preferences.liveCoding && editor) {
       this.lazyRun();
     };
   }
 
   isEmbedMode() {
-    const {search} = window.location,
-          parsed = queryString.parse(search);
+    const { search } = window.location,
+      parsed = queryString.parse(search);
     return !!parsed.embed;
   }
 
   render() {
     const block = "editor";
-    const {dispatch, files, currentFile, terminal} = this.props;
+    const { dispatch, files, currentFile, terminal } = this.props;
     const embedMode = this.isEmbedMode();
 
     return (
@@ -87,24 +89,24 @@ class App extends React.Component {
       })}>
         <div className={block + "__code-screen"}>
           <Header>
-            <FileList 
+            <FileList
               files={files}
               onOpenFile={path => dispatch(openFile(path))}
               current={currentFile} />
           </Header>
-          <CodeEditor 
+          <CodeEditor
             ref="editor"
             currentFile={currentFile}
             autoSave={true}
             onChange={this.handleEditorChange.bind(this)}
-            onSave={this.handleSave.bind(this)} 
+            onSave={this.handleSave.bind(this)}
             value={files[currentFile]} />
         </div>
         <div className={block + "__console"}>
-          <Console lines={terminal.lines} 
-                   error={terminal.error}
-                   ref="console"
-                   onRun={this.handleRun.bind(this)} />
+          <Console lines={terminal.lines}
+            error={terminal.error}
+            ref="console"
+            onRun={this.handleRun.bind(this)} />
         </div>
       </div>
     );

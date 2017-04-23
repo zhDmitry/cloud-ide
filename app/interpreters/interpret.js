@@ -1,49 +1,19 @@
 import deferred from 'deferred';
+import RJSON from 'relaxed-json';
+import axios from 'axios';
+import { stringify } from 'query-string';
 
-export default function interpret(source, stdout, stderr, flush,
-                                  worker, parsingErrors) {
-  let delayed = deferred();
-  var flushScreen = true;
-
-  const handleWrite = (data) => {
-    delayed.promise().then(_ => stdout(data));
-  }
-
-  const handleError = (data) => {
-    let writeError = _ => stderr(data.description);
-    if (parsingErrors.indexOf(data.type) > -1) {
-      writeError();
-      flushScreen = false;
-    } else {
-      delayed.promise().then(writeError);
+export default function interpret(source, stdout, stderr, flush, meta, definition) {
+  axios.post('http://localhost:3000/build', {
+    code: source,
+    meta: {
+      ...meta,
+      ...definition
     }
-  }
-
-  const handleExit = _ => {
-    if (flushScreen) {flush();}
-    delayed.resolve();
-    disconnect();
-  }
-
-  const handleMessage = (e) => {
-    let action = JSON.parse(e.data);
-    let handler = {
-      'stdout': handleWrite,
-      'stderr': handleError,
-      'exit': handleExit
-    }[action.type];
-    handler(action.data);
-  }
-
-  const connect = _ => (
-    worker.addEventListener('message', handleMessage)
-  );
-
-  const disconnect = _ => (
-    worker.removeEventListener('message', handleMessage)
-  );
-
-  connect();
-  
-  worker.postMessage(source);
+  }).then(el => {
+    flush();
+    stdout(el.data.result)
+  }).catch(el => {
+    stderr(JSON.stringify(el.response.data.result));
+  })
 }

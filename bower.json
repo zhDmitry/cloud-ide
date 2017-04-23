@@ -1,10 +1,6 @@
 {
-  "name": "pyide",
+  "name": "ide",
   "version": "0.0.0",
-  "authors": [
-    "Fatih Erikli <fatiherikli@gmail.com>"
-  ],
-  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
