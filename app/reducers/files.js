@@ -7,8 +7,8 @@ const initialState = {
   'hello.py': require('examples/hello.py'),
   'hello.rb': require('examples/hello.rb'),
   'hello.js': require('examples/hello._js'),
-  'hey.bf': require('examples/hey.bf'),
-  'sum.hpc': require('examples/sum.hpc'),
+  'hello.go': require('examples/hello.go'),
+  'HelloWorld.java':require('examples/HelloWorld.java'),
 };
 
 export function files(state=initialState, action) {

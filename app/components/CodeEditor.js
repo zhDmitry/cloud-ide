@@ -2,6 +2,7 @@ import React from 'react';
 import AceEditor from 'react-ace';
 
 import 'brace/mode/python';
+import 'brace/mode/java';
 import 'brace/mode/ruby';
 import 'brace/mode/javascript';
 import 'brace/theme/tomorrow_night';

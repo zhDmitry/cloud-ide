@@ -18,3 +18,8 @@ golang:
   description: "Golang"
   extension: "go"
   editorMode: "go"
+
+java:
+  description: "Java"
+  extension: "java"
+  editorMode: "java"
