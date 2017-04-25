@@ -39,14 +39,14 @@ function compile(watch) {
       })
       ).transform(
       stringify(['.py', '.rb', '.md', '.hpc',
-        '.bf', '.yaml', '._js'])
+        '.bf', '.yaml', '._js', '.java', '.go'])
       )
   );
 
   function rebundle() {
     bundler.bundle()
       .on('error', function (err) {
-        console.error(err.message);
+        console.error(err.toString());
         this.emit('end');
       })
       .pipe(source('main.js'))
